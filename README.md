@@ -1,6 +1,5 @@
 # delete-gh-workflow-runs
 
-[![ci](https://github.com/christosgalano/delete-gh-workflow-runs/actions/workflows/ci.yaml/badge.svg?branch=main&event=push)](https://github.com/christosgalano/delete-gh-workflow-runs/actions/workflows/ci.yaml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/christosgalano/delete-gh-workflow-runs)](https://goreportcard.com/report/github.com/christosgalano/delete-gh-workflow-runs)
 [![Go Reference](https://pkg.go.dev/badge/github.com/christosgalano/delete-gh-workflow-runs.svg)](https://pkg.go.dev/github.com/christosgalano/delete-gh-workflow-runs)
 [![Github Downloads](https://img.shields.io/github/downloads/christosgalano/delete-gh-workflow-runs/total.svg)](https://github.com/christosgalano/delete-gh-workflow-runs/releases)
