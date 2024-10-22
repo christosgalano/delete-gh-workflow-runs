@@ -26,8 +26,9 @@ const maxWorkers = 10
 
 // rootCmd represents the base command when called without any subcommands.
 var rootCmd = &cobra.Command{
-	Use:   "delete-gh-workflow-runs",
-	Short: "delete-gh-workflow-runs is a command-line tool to delete GitHub Actions workflow runs.",
+	Version: "v1.0.0",
+	Use:     "delete-gh-workflow-runs",
+	Short:   "delete-gh-workflow-runs is a command-line tool to delete GitHub Actions workflow runs.",
 	Long: `delete-gh-workflow-runs is a command-line tool to delete GitHub Actions workflow runs.
 
 It allows you to delete all workflow runs or only the runs of a specific workflow.
@@ -72,9 +73,6 @@ func init() {
 
 	// Workflow name - required
 	rootCmd.Flags().StringVarP(&workflow, "workflow", "w", "all", "workflow to delete runs from or 'all' to delete all runs")
-
-	// Version
-	rootCmd.Version = "v1.0.0"
 }
 
 // deleteWorkflowRuns deletes GitHub workflow runs for a specified repository and workflow.
