@@ -1,0 +1,97 @@
+version: 2
+
+project_name: delete-gh-workflow-runs
+
+release:
+  github:
+    owner: christosgalano
+    name: delete-gh-workflow-runs
+
+before:
+  hooks:
+    - go mod tidy
+    - go mod download
+
+builds:
+  - id: delete-gh-workflow-runs
+    binary: delete-gh-workflow-runs
+    main: ./cmd/delete-gh-workflow-runs
+    goos:
+      - linux
+      - windows
+      - darwin
+      - freebsd
+    goarch:
+      - amd64
+      - arm
+      - arm64
+    env:
+      - CGO_ENABLED=0
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    flags:
+      - -trimpath
+    ldflags: -s -w -X main.version={{.Version}} -X main.commit={{.ShortCommit}} -X main.date={{.Date}}
+
+archives:
+  - id: delete-gh-workflow-runs
+    builds:
+      - delete-gh-workflow-runs
+    format: tar.gz
+    name_template: '{{.ProjectName}}_{{.Os}}_{{.Arch}}'
+    files:
+      - README.md
+      - LICENSE
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: '{{ .ProjectName }}_checksums.txt'
+
+snapshot:
+  name_template: SNAPSHOT-{{ .Commit }}
+
+sboms:
+  - artifacts: binary
+    documents:
+      - '{{ .Binary }}_{{ .Os }}_{{ .Arch }}.sbom.json'
+
+changelog:
+  use: github
+  sort: asc
+  filters:
+    exclude:
+      - 'LICENSE'
+      - 'CONTRIBUTING.md'
+      - 'CODE_OF_CONDUCT.md'
+      - '^testdata:'
+      - '.*_test.go'
+      - Merge pull request
+      - Merge branch
+
+nfpms:
+  - package_name: delete-gh-workflow-runs
+    homepage: https://github.com/christosgalano/delete-gh-workflow-runs
+    maintainer: Christos Galanopoulos <christosgalanop@gmail.com>
+    description: Command-line tool to generate documentation for Bicep templates
+    license: MIT
+    formats:
+      - apk
+      - deb
+      - rpm
+    file_name_template: '{{.ProjectName}}_{{.Os}}_{{.Arch}}'
+
+brews:
+  - name: delete-gh-workflow-runs
+    description: Command-line tool to generate documentation for Bicep templates
+    license: MIT
+    homepage: https://github.com/christosgalano/delete-gh-workflow-runs
+    directory: Formula
+    test: system "#{bin}/delete-gh-workflow-runs", "--help"
+    repository:
+      name: homebrew-christosgalano
+      owner: christosgalano
+    commit_author:
+      name: christosgalano
+      email: christosgalanop@gmail.com
+    install: bin.install "delete-gh-workflow-runs"

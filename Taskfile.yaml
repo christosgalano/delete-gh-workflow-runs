@@ -1,0 +1,51 @@
+version: '3'
+
+tasks:
+  #### Default ####
+  default:
+    desc: List all tasks
+    cmds:
+      - task -l
+    silent: true
+
+  #### Utility ####
+  setup:
+    desc: Run all setup tasks
+    cmds:
+      - task setup:mod
+      - task setup:lint
+      - task setup:test
+    silent: true
+
+  setup:mod:
+    desc: Download and tidy Go modules
+    cmds:
+      - go mod download
+      - go mod tidy
+    silent: true
+
+  setup:lint:
+    desc: Install necessary linting tools
+    cmds:
+      - go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+    silent: true
+
+  #### Lint ####
+  lint:
+    desc: Run golangci-lint
+    cmd: golangci-lint run ./...
+    silent: true
+
+  #### Build ####
+  build:
+    desc: Build binary
+    cmds:
+      - go build -o ./bin/delete-gh-workflow-runs ./cmd/delete-gh-workflow-runs/main.go
+    silent: true
+
+  #### Clean ####
+  clean:
+    desc: Clean binaries
+    cmd: rm ./bin/delete-gh-workflow-runs 2> /dev/null
+    silent: true
+    ignore_error: true

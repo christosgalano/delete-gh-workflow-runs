@@ -1,0 +1,29 @@
+name: 'delete-gh-workflow-runs'
+author: 'Christos Galanopoulos'
+description: 'Delete GitHub workflow runs for a specific repository'
+branding:
+  icon: delete
+  color: gray-dark
+inputs:
+  owner:
+    description: 'Specify the repository owner'
+    required: true
+  repo:
+    description: 'Specify the repository name'
+    required: true
+  token:
+    description: 'Specify the token used to get and delete the workflow runs'
+    default: ${{ github.token }}}
+    required: true
+  workflow:
+    description: 'Specify the workflow name to delete the runs for'
+    default: 'all'
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - --owner=${{ inputs.owner }}
+    - --repo=${{ inputs.repo }}
+    - --token=${{ inputs.token }}
+    - --workflow=${{ inputs.workflow }}
