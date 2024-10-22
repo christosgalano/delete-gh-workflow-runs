@@ -10,6 +10,7 @@
 - [Installation](#installation)
 - [Requirements](#requirements)
 - [Usage](#usage)
+- [GitHub Action](#github-action)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -65,6 +66,46 @@ Delete all workflow runs of a repository:
 
 ```bash
 delete-gh-workflow-runs --owner {owner} --repo {repo} --token {token}
+```
+
+## GitHub Action
+
+You can use this tool as a GitHub Action. Here is an example:
+
+### Syntax
+
+```yaml
+uses: christosgalano/delete-gh-workflow-runs@v1.0.0
+with:
+  owner: ${{ github.repository_owner }}   # The owner of the repository
+  repo: ...                               # The name of the repository
+  workflow: "all"                         # The name of the workflow or "all" to delete all workflow runs
+  token: ${{ github.TOKEN }}              # The GitHub token
+```
+
+### Examples
+
+Delete the runs of a specific workflow:
+
+```yaml
+- name: Delete workflow runs
+  uses: christosgalano/delete-gh-workflow-runs@v1.0.0
+  with:
+    owner: ${{ github.repository_owner }}
+    repo: ${{ inputs.repository }}
+    workflow: ${{ inputs.workflow }}
+    token: ${{ github.TOKEN }}
+```
+
+Delete all workflow runs of a repository:
+
+```yaml
+- name: Delete all workflow runs
+  uses: christosgalano/delete-gh-workflow-runs@v1.0.0
+  with:
+    owner: ${{ github.repository_owner }}
+    repo: ${{ inputs.repository }}
+    token: ${{ github.TOKEN }}
 ```
 
 ## Contributing

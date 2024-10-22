@@ -7,6 +7,7 @@ branding:
 inputs:
   owner:
     description: 'Specify the repository owner'
+    default: ${{ github.repository_owner }}
     required: true
   repo:
     description: 'Specify the repository name'

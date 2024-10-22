@@ -27,7 +27,7 @@ jobs:
           echo "Extracted tag version: '$tag_version'"
           if [ "$cli_version" != "$tag_version" ]; then
             echo "Version mismatch: $cli_version != $tag_version"
-            exit 1
+            exit 1`
           fi
 
       - name: Setup Go
