@@ -32,6 +32,7 @@ var rootCmd = &cobra.Command{
 	Long: `delete-gh-workflow-runs is a command-line tool to delete GitHub Actions workflow runs.
 
 It allows you to delete all workflow runs or only the runs of a specific workflow.
+Only 'completed' workflow runs are considered for deletion.
 
 In order to run it, the provided token must have the following permissions:
 - Read access to metadata

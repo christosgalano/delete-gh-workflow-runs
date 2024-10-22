@@ -54,6 +54,8 @@ delete-gh-workflow-runs is a command-line tool that deletes GitHub Actions workf
 - `--workflow` - The name of the workflow or "all" to delete all workflow runs; default is "all".
 - `--token` - The GitHub token.
 
+> NOTE: Only 'completed' workflow runs are considered for deletion.
+
 ### Example usage
 
 Delete the runs of a specific workflow:

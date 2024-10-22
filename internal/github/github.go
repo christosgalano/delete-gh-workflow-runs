@@ -85,7 +85,7 @@ func GetWorkflowsByName(ctx context.Context, client *github.Client, repo Reposit
 //   - An error if the request to the GitHub API fails or if there are issues processing the response.
 func GetWorkflowRunIDs(ctx context.Context, client *github.Client, workflow Workflow, repo Repository) ([]int64, error) {
 	var allRunIDs []int64
-	opts := &github.ListWorkflowRunsOptions{ListOptions: github.ListOptions{PerPage: elementPerPage}}
+	opts := &github.ListWorkflowRunsOptions{Status: "completed", ListOptions: github.ListOptions{PerPage: elementPerPage}}
 	for {
 		// Get a page of workflow runs
 		runs, resp, err := client.Actions.ListWorkflowRunsByID(ctx, repo.Owner, repo.Repository, workflow.ID, opts)
@@ -93,9 +93,12 @@ func GetWorkflowRunIDs(ctx context.Context, client *github.Client, workflow Work
 			return nil, fmt.Errorf("failed to get workflow runs for %s: %w", workflow.Name, err)
 		}
 
-		// Collect run IDs
+		// Collect run IDs for completed runs
 		for _, run := range runs.WorkflowRuns {
-			allRunIDs = append(allRunIDs, run.GetID())
+			status := run.GetStatus()
+			if status == "completed" {
+				allRunIDs = append(allRunIDs, run.GetID())
+			}
 		}
 
 		// Check if there are more pages
